@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>猜数字游戏主界面</title>
+<style>
+  body {
+    font-family: "Microsoft YaHei", sans-serif;
+    text-align: center;
+    margin-top: 50px;
+  }
+  .difficulty {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .difficulty:hover {
+    background-color: #f0f0f0;
+  }
+</style>
+</head>
+<body>
+<h1>猜数字游戏</h1>
+<p>选择难度开始游戏：</p>
+<div class="difficulty" onclick="startGame(10)">简单（10次机会）</div>
+<div class="difficulty" onclick="startGame(7)">中等（7次机会）</div>
+<div class="difficulty" onclick="startGame(5)">困难（5次机会）</div>
+<div class="difficulty" onclick="startGame(3)">专家（3次机会）</div>
+
+<script>
+  function startGame(maxGuesses) {
+    // 将最大猜测次数作为参数传递给游戏页面
+    window.location.href = 'game.html?maxGuesses=' + maxGuesses;
+  }
+</script>
+</body>
+</html>

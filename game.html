@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>猜数字游戏</title>
+<style>
+  body {
+    font-family: "Microsoft YaHei", sans-serif;
+    text-align: center;
+    margin-top: 50px;
+  }
+  #result {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  #score {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  #guessesLeft {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<h1>猜数字游戏</h1>
+<p>我有一个1到100之间的数字，你能猜到它是多少吗？</p>
+<input type="number" id="guess" placeholder="输入数字..." />
+<button onclick="checkNumber()">猜！</button>
+<div id="result"></div>
+<div id="score"></div>
+<div id="guessesLeft"></div>
+
+<script>
+  var secretNumber = Math.floor(Math.random() * 100) + 1;
+  var maxGuesses = parseInt(window.location.search.substring(11)); // 从URL中获取最大猜测次数
+  var currentGuesses = 0;
+  var score = 100;
+
+  // 如果maxGuesses不是数字，则设置为默认值10
+  if (isNaN(maxGuesses)) {
+    maxGuesses = 10;
+  }
+
+  function checkNumber() {
+    var guess = document.getElementById('guess').value;
+    var result = document.getElementById('result');
+    var scoreDisplay = document.getElementById('score');
+    var guessesLeftDisplay = document.getElementById('guessesLeft');
+
+    if(guess == secretNumber) {
+      result.innerHTML = '恭喜你，猜对了！';
+      score += 10;
+    } else {
+      currentGuesses++;
+      var guessesRemaining = maxGuesses - currentGuesses;
+      if(guessesRemaining <= 0) {
+        result.innerHTML = '游戏结束！数字是 ' + secretNumber + '。';
+        score -= 10;
+        document.getElementById('guess').disabled = true;
+      } else {
+        result.innerHTML = guess < secretNumber ? '太小了！' : '太大了！';
+        score -= 5;
+        guessesLeftDisplay.innerHTML = '剩余猜测次数：' + guessesRemaining;
+      }
+    }
+
+    scoreDisplay.innerHTML = '分数：' + score;
+  }
+</script>
+</body>
+</html>
